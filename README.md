@@ -39,7 +39,7 @@ This is an evolving portfolio. I plan to add projects as I explore new topics in
 
 ## View the Website
 
-[Visit the portfolio](YOUR_WEBSITE_URL)
+[Visit the portfolio]()
 
 ## Contact
 
