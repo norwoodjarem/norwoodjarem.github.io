@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A personal portfolio showcasing quantitative finance, Python, Excel, portfolio optimization, and data analysis." />
+  <meta name="theme-color" content="#102523" />
+  <title>Personal Portfolio | Finance & Data Analytics</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172d2a;
+      --ink-2: #304843;
+      --muted: #60746d;
+      --green: #123c35;
+      --green-light: #d8efe5;
+      --sea: #b8e3ce;
+      --lime: #ddfb88;
+      --paper: #fafaf5;
+      --cream: #f1f3e9;
+      --line: #dfe6dc;
+      --white: #fff;
+      --shadow: 0 25px 65px rgba(12, 44, 35, .11);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family: "Avenir Next", Avenir, "Segoe UI", Arial, sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    a:hover { color:#176e5c; }
+    img { max-width:100%; display:block; }
+    button { font:inherit; }
+    .container { width:min(1160px, calc(100% - 64px)); margin:auto; }
+    .skip-link {position:absolute;top:-100px;left:10px;background:white;padding:10px 15px;z-index:20;}
+    .skip-link:focus {top:10px;}
+    a:focus-visible,button:focus-visible {outline:3px solid #bbd85d; outline-offset:4px;}
+    .site-header { border-bottom:1px solid rgba(24,54,45,.1); background:rgba(250,250,245,.94); position:sticky; top:0; z-index:10; backdrop-filter:blur(15px); }
+    .topbar {display:flex; align-items:center; justify-content:space-between; min-height:80px; gap:24px;}
+    .brand {display:flex;align-items:center;gap:11px;font-size:15px;font-weight:800;letter-spacing:-.02em; white-space:nowrap;}
+    .brandmark {display:inline-grid;place-items:center;width:38px;height:38px;background:var(--ink);color:var(--lime);border-radius:12px;font-size:13px;letter-spacing:-.04em;}
+    .nav-links { display:flex; align-items:center; gap:27px; font-size:13px; font-weight:700; }
+    .nav-links a {padding:10px 0;}
+    .nav-links a:last-child {border:1px solid #bfd1c3;border-radius:100px;padding:9px 16px;}
+    .menu-toggle { display:none; cursor:pointer; padding:9px 12px; border-radius:10px; border:1px solid var(--line); background:transparent;color:var(--ink); }
+    .hero { position:relative; overflow:hidden; background:linear-gradient(115deg, #0d2925 0%, #153d34 62%, #1b4d3e 100%);color:#f8fff7; }
+    .hero::after { content:"";position:absolute;width:650px;height:650px;border:1px solid rgba(221,251,136,.08);border-radius:50%;right:-280px;top:-140px;box-shadow:0 0 0 90px rgba(205,237,194,.025),0 0 0 190px rgba(205,237,194,.018);pointer-events:none; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,1.12fr) minmax(300px,.78fr); gap:75px; align-items:center; padding:97px 0 100px; position:relative;z-index:1; }
+    .eyebrow { text-transform:uppercase; letter-spacing:.2em; font-size:11px; font-weight:800; }
+    .hero .eyebrow {color:var(--lime);display:flex;align-items:center;gap:11px;}
+    .eyebrow .dot {height:7px;width:7px;border-radius:50%;background:var(--lime);display:inline-block;}
+    h1,h2,h3,h4,p {margin-top:0;}
+    h1 {font-size:clamp(54px,6.2vw,89px); letter-spacing:-.065em;line-height:1.02;max-width:740px;margin:22px 0 25px;font-weight:750;}
+    .hero h1 em {font-style:normal;color:var(--lime);}
+    .hero-description {max-width:570px;color:#c2d6ca;font-size:17px;line-height:1.8;margin-bottom:30px;}
+    .hero-actions {display:flex; flex-wrap:wrap; gap:12px;align-items:center;}
+    .btn {display:inline-flex;gap:10px;align-items:center;justify-content:center;border-radius:100px;min-height:46px;padding:11px 19px;font-size:13px;font-weight:800;transition: transform .15s ease, background .15s ease;}
+    .btn:hover {transform:translateY(-2px);}
+    .btn-bright {background:var(--lime);color:#1a302a;}
+    .btn-bright:hover {background:#efffb6;color:#1a302a;}
+    .btn-ghost {border:1px solid #66877a;color:#f8fff7;}
+    .btn-ghost:hover {color:white;background:rgba(255,255,255,.09);}
+    .hero-side {padding:21px;border-radius:22px;border:1px solid #54796b;background:rgba(11,37,30,.44);box-shadow:0 28px 60px rgba(0,0,0,.11);position:relative;}
+    .side-top {display:flex;align-items:center;justify-content:space-between;color:#bed5c8;font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;}
+    .side-top span:last-child {color:var(--lime);}
+    .hero-chart {width:100%;height:auto;margin:16px 0 6px;overflow:visible;}
+    .side-stats {display:grid;grid-template-columns:repeat(3,1fr);gap:11px;border-top:1px solid rgba(255,255,255,.13);padding-top:18px;}
+    .side-stats strong {display:block;font-size:26px;letter-spacing:-.07em;color:#f8ffec;line-height:1.15;}
+    .side-stats span {display:block;font-size:10px;line-height:1.4;color:#a9c7b7;margin-top:7px;}
+    .mini-strip {border-bottom:1px solid var(--line);background:#ecf1e9;}
+    .strip-content {display:flex;align-items:center;justify-content:space-between;gap:16px;padding:17px 0;flex-wrap:wrap;}
+    .strip-content span {font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:750;color:#456259;}
+    .strip-content strong {color:#1e4b3d;font-weight:850;}
+    main section {scroll-margin-top:96px;}
+    .section {padding:104px 0;}
+    .section-head {display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:39px;}
+    .section-label {color:#288268;margin-bottom:14px;}
+    h2 {font-size:clamp(34px,4vw,51px);line-height:1.13;letter-spacing:-.052em;margin:0;font-weight:800;}
+    .section-intro {font-size:15px;color:var(--muted);max-width:390px;margin:0;}
+    .about {display:grid;grid-template-columns:.72fr 1.28fr;gap:80px;align-items:start;}
+    .about-card {background:var(--green);padding:34px;border-radius:20px;color:#effaef;min-height:284px;display:flex;flex-direction:column;justify-content:space-between;}
+    .about-card .monogram {font-size:70px;font-weight:750;letter-spacing:-.07em;line-height:1;color:var(--lime);}
+    .about-card small {color:#bcdbca;font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;}
+    .about-copy {padding-top:11px;}
+    .about-copy h3 {font-size:29px;line-height:1.28;letter-spacing:-.045em;margin:0 0 18px;}
+    .about-copy p {color:var(--muted);font-size:16px;line-height:1.9;max-width:680px;margin-bottom:14px;}
+    .about-note {margin-top:19px;padding-left:19px;border-left:3px solid #76b39d;color:#326355;font-size:14px;font-weight:650;}
+    .skills-section {background:var(--cream);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+    .skill-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:17px;}
+    .skill-card {background:var(--paper);border:1px solid var(--line);padding:28px;border-radius:18px;min-height:225px;}
+    .skill-icon {display:grid;place-items:center;width:43px;height:43px;border:1px solid #d0dfd3;border-radius:13px;background:#e8f3e9;font-weight:850;color:#226b54;font-size:16px;margin-bottom:24px;}
+    .skill-card h3 {font-size:20px;letter-spacing:-.035em;margin-bottom:10px;}
+    .skill-card p {font-size:14px;line-height:1.8;color:var(--muted);margin:0;}
+    .work-section .section-head {margin-bottom:42px;}
+    .work-card {border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px;background:var(--white);overflow:hidden;}
+    .work-top {display:grid;grid-template-columns:1fr 1fr;gap:0;}
+    .project-info {padding:43px 42px;}
+    .pill {display:inline-block;background:#e8f3e9;color:#276d54;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:100px;margin-bottom:18px;}
+    .project-info h3 {font-size:clamp(26px,3.1vw,39px);line-height:1.19;letter-spacing:-.055em;margin-bottom:16px;}
+    .project-info p {font-size:15px;color:var(--muted);line-height:1.85;}
+    .tags {display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 28px;}
+    .tag {display:inline-block;border:1px solid #d6e3d8;border-radius:100px;padding:6px 11px;font-size:11px;font-weight:750;color:#3a6654;}
+    .link-row {display:flex;flex-wrap:wrap;gap:18px;align-items:center;}
+    .text-link {font-weight:800;font-size:14px;color:#14634d;border-bottom:1px solid #86ba9e;padding-bottom:3px;}
+    .text-link:hover {color:#0b392d;}
+    .preview-wrap {display:flex;align-items:center;justify-content:center;background:#e4eee7;padding:30px;min-width:0;}
+    .preview-wrap img {width:100%;border:1px solid #dce3e1;border-radius:10px;box-shadow:0 10px 35px #234f3b22;}
+    .metrics {display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #e6ede5;}
+    .metric {padding:28px 24px;border-right:1px solid #e6ede5;}
+    .metric:last-child {border-right:none;}
+    .metric strong {display:block;font-size:28px;letter-spacing:-.05em;color:#184d3d;line-height:1.2;}
+    .metric span {display:block;color:#6a7c73;font-size:12px;line-height:1.5;margin-top:7px;}
+    .project-footnote {font-size:12px;color:#74837a;margin:15px 2px 0;}
+    .next-work {display:grid;grid-template-columns:1fr auto;align-items:center;gap:15px;background:#f2f5ee;border:1px dashed #b7cab8;border-radius:18px;padding:24px 28px;margin-top:20px;}
+    .next-work h3 {font-size:17px;letter-spacing:-.02em;margin:0 0 5px;}
+    .next-work p {margin:0;color:var(--muted);font-size:13px;}
+    .next-work span {font-size:12px;color:#597c6c;font-weight:700;}
+    .approach {background:#12372e;color:white;}
+    .approach .section-label {color:var(--lime);}
+    .approach .section-intro {color:#c0d6ca;}
+    .principles {display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .principle {border:1px solid rgba(225,249,221,.22);border-radius:18px;padding:29px 28px;}
+    .principle strong {display:block;color:var(--lime);font-size:13px;margin-bottom:30px;}
+    .principle h3 {font-size:23px;letter-spacing:-.03em;margin-bottom:10px;}
+    .principle p {font-size:14px;line-height:1.8;color:#bfdbcb;margin:0;}
+    .contact-card {border-radius:24px;padding:55px;background:#e6f2e7;border:1px solid #cfdfd0;display:grid;grid-template-columns:1fr auto;gap:35px;align-items:center;}
+    .contact-card h2 {font-size:clamp(33px,4.1vw,52px);margin-bottom:14px;max-width:600px;}
+    .contact-card p {margin:0;max-width:600px;color:#587668;font-size:15px;}
+    .contact-links {display:flex;flex-direction:column;align-items:stretch;gap:9px;min-width:170px;}
+    .contact-link {display:flex;align-items:center;justify-content:center;border:1px solid #a4c3ae;padding:12px 20px;border-radius:100px;min-height:46px;font-size:13px;font-weight:800;color:#174f3c;background:#fff9;}
+    .contact-link:hover {background:white;color:#174f3c;}
+    [hidden] {display:none !important;}
+    .resume-line {font-size:13px;color:var(--muted);margin-top:15px;}
+    footer {border-top:1px solid var(--line);padding:26px 0 35px;font-size:12px;color:#648073;}
+    .footer-inner {display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+    @media(max-width:980px) {
+      .hero-grid {gap:35px;grid-template-columns:1fr .82fr;}
+      .hero-side {padding:15px;}
+      .side-stats strong {font-size:20px;}
+      .about {gap:35px;}
+      .project-info {padding:32px;}
+      .metric {padding:23px 17px;}
+      .metric strong {font-size:24px;}
+    }
+    @media(max-width:760px) {
+      .container {width:min(100% - 36px,1160px);}
+      .topbar {min-height:70px;}
+      .menu-toggle {display:block;}
+      .nav-links {display:none;position:absolute;top:69px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:15px 22px;background:var(--paper);border-bottom:1px solid var(--line);box-shadow:0 15px 20px #123c3515;}
+      .nav-links.open {display:flex;}
+      .nav-links a {padding:13px 0;}
+      .nav-links a:last-child {border:0;padding:13px 0;}
+      .hero-grid {grid-template-columns:1fr;padding:70px 0 73px;gap:44px;}
+      h1 {font-size:clamp(52px,10vw,76px);}
+      .hero-side {max-width:500px;}
+      .section {padding:73px 0;}
+      .section-head {display:block;}
+      .section-intro {margin-top:15px;}
+      .about {grid-template-columns:1fr;}
+      .about-card {min-height:180px;}
+      .skill-grid {grid-template-columns:1fr;}
+      .skill-card {min-height:auto;}
+      .work-top {grid-template-columns:1fr;}
+      .preview-wrap {padding:24px;}
+      .metrics {grid-template-columns:repeat(2,1fr);}
+      .metric:nth-child(2) {border-right:0;}
+      .metric:nth-child(-n+2) {border-bottom:1px solid #e6ede5;}
+      .principles {grid-template-columns:1fr;}
+      .principle strong {margin-bottom:16px;}
+      .contact-card {grid-template-columns:1fr;padding:32px 24px;}
+      .contact-links {flex-direction:row;flex-wrap:wrap;}
+      .next-work {grid-template-columns:1fr;}
+    }
+    @media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto;} .btn {transition:none;}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container topbar">
+      <a class="brand" href="#home" aria-label="Home"><span class="brandmark" data-initials>YN</span><span data-name>Your Name</span><span style="color:#6c8073">/ Portfolio</span></a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-controls="site-nav" aria-expanded="false">Menu ☰</button>
+      <nav id="site-nav" class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#work">Projects</a>
+        <a href="#approach">Approach</a>
+        <a href="#contact">Contact ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Finance & Data Analytics Portfolio</div>
+          <h1 id="hero-title">Data-driven thinking.<br><em>Real-world insight.</em></h1>
+          <p class="hero-description">Hi, I’m <strong data-name>Your Name</strong>. I explore how financial modeling, statistics, and clear communication can turn complex datasets into useful decisions.</p>
+          <div class="hero-actions">
+            <a class="btn btn-bright" href="#work">Explore my work <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="hero-side" aria-label="Data analytics illustration">
+          <div class="side-top"><span>Analysis at a glance</span><span>01 / Featured study</span></div>
+          <svg class="hero-chart" viewBox="0 0 390 210" role="img" aria-label="Decorative upward-trending analysis line with shaded area">
+            <defs>
+              <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcf18b" stop-opacity=".23"/><stop offset="1" stop-color="#bcf18b" stop-opacity="0"/></linearGradient>
+            </defs>
+            <g stroke="#41675a" stroke-width="1" opacity=".7"><path d="M0 45H390M0 90H390M0 135H390M0 180H390"/><path d="M60 0V202M160 0V202M260 0V202M360 0V202"/></g>
+            <path d="M0 181L42 167L76 175L114 133L151 138L194 111L236 97L275 75L310 78L351 32L390 28V210H0Z" fill="url(#shade)"/>
+            <path d="M0 181L42 167L76 175L114 133L151 138L194 111L236 97L275 75L310 78L351 32L390 28" fill="none" stroke="#dbfa8b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="351" cy="32" r="8" fill="#dbfa8b" stroke="#163d31" stroke-width="4"/>
+          </svg>
+          <div class="side-stats">
+            <div><strong>12</strong><span>industry portfolios</span></div>
+            <div><strong>120</strong><span>monthly observations</span></div>
+            <div><strong>2</strong><span>forecast models</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="mini-strip">
+      <div class="container strip-content"><span>Areas of interest</span><span><strong>01</strong> Quantitative finance</span><span><strong>02</strong> Portfolio analytics</span><span><strong>03</strong> Financial forecasting</span></div>
+    </div>
+
+    <section id="about" class="section">
+      <div class="container about">
+        <div class="about-card"><small>WHAT INTERESTS ME</small><div class="monogram" style="font-size:35px; line-height:1.2; letter-spacing:0;">
+  Finance<br>
+  &amp; Data<br>
+  Analytics
+</div><small>RESEARCH • APPLICATION • EXPLORATION</small></div>
+        <div class="about-copy">
+          <div class="eyebrow section-label">01 / About</div>
+          <p>I'm building this website as a way to showcase my growing knowledge, skills, and interests across different areas of finance. Each project is an opportunity to apply concepts I've learned through my coursework and independent exploration, develop practical skills, and gain a deeper understanding of topics that interest me.</p>
+          <p>My long-term career interests include corporate law, private wealth management, and investment banking. While these fields offer different career paths, each appeals to my interest in finance, business strategy, and analytical problem-solving. Through the projects I develop and share here, I hope to explore these areas further, strengthen my technical and analytical abilities, and better understand where my interests and career goals align.</p>
+          <div class="featured-project"></div>
+          <h3>Featured project</h3>
+          <p>My featured project examines portfolio risk and return across 12 U.S. industries and compares financial time-series forecasting methods. It reflects my interest in understanding financial markets through data analysis and applying quantitative tools to real-world financial questions</p>
+          <p>As I continue learning, I plan to expand this website with new projects that reflect my developing interests and capabilities.</p>
+          <div class="about-note">This site highlights projects and techniques I can walk through—not claims of past professional experience.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow section-label">02 / Toolkit</div><h2>Skills in practice.</h2></div>
+          <p class="section-intro">Tools and concepts used in the portfolio analysis project, and areas I'm continuing to develop.</p>
+        </div>
+        <div class="skill-grid">
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">Py</div><h3>Python & analysis</h3><p>Return calculations, numerical optimization, model testing, reusable scripts, and reproducible charts.</p></article>
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">Σ</div><h3>Quantitative finance</h3><p>Mean–variance optimization, covariance estimation, efficient frontiers, portfolio volatility, and Sharpe ratios.</p></article>
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">Xl</div><h3>Excel & forecasting</h3><p>Spreadsheet modeling, editable portfolio weights, risk calculations, and random walk versus AR(1) forecast evaluation.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="section work-section">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow section-label">03 / Selected work</div><h2>Projects, with substance.</h2></div>
+          <p class="section-intro">A reproducible case study using historical industry return data and transparent model assumptions.</p>
+        </div>
+        <article class="work-card">
+          <div class="work-top">
+            <div class="project-info">
+              <span class="pill">Featured · Quantitative Finance</span>
+              <h3>Portfolio Optimization & Time-Series Forecasting</h3>
+              <p>Analyzed monthly value-weighted returns for 12 U.S. industry portfolios (2016–2025), constructed a long-only efficient frontier, compared equal-weight, minimum-variance, and maximum-Sharpe portfolios, and evaluated random walk versus AR(1) holdout forecasts.</p>
+              <div class="tags"><span class="tag">Python</span><span class="tag">Excel</span><span class="tag">Fama–French</span><span class="tag">Optimization</span><span class="tag">AR(1)</span></div>
+              <div class="link-row">
+                <a class="text-link" data-project-link href="#" hidden target="_blank" rel="noopener noreferrer">View code & methodology ↗</a>
+                <a class="text-link" href="assets/efficient_frontier.png" target="_blank" rel="noopener noreferrer">View full-size chart ↗</a>
+              </div>
+            </div>
+            <div class="preview-wrap"><img src="assets/efficient_frontier.png" width="1536" height="1024" loading="lazy" alt="Efficient frontier generated using monthly Fama-French industry returns from 2016 to 2025" /></div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><strong>13.38%</strong><span>Equal-weight estimated annual return</span></div>
+            <div class="metric"><strong>11.99%</strong><span>Minimum-variance estimated annual volatility</span></div>
+            <div class="metric"><strong>1.08</strong><span>Maximum-Sharpe estimated ratio</span></div>
+            <div class="metric"><strong>7.1%</strong><span>Lower forecast RMSE for AR(1) vs. random walk</span></div>
+          </div>
+        </article>
+        <p class="project-footnote">Historical-data-based model estimates, not a realized trading backtest or guaranteed future performance. Data: <a href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html" target="_blank" rel="noopener noreferrer" style="text-decoration:underline">Kenneth R. French Data Library</a>.</p>
+        <div class="next-work"><div><h3>More work to come</h3><p>Additional projects will be added as they are completed and documented.</p></div><span>Portfolio in progress ↗</span></div>
+      </div>
+    </section>
+
+    <section id="approach" class="section approach">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="eyebrow section-label">04 / Behind the projects</div><h2>How I approach my work</h2></div>
+          <p class="section-intro">Each project begins with a topic I want to understand better. I try to approach each project with an emphasis on understanding the methods I use and being able to explain the decisions behind my work.</p>
+        </div>
+        <div class="principles">
+          <div class="principle"><strong>01 / RESEARCH</strong><h3>Understanding the Problem</h3><p>Before beginning the analysis, I spend time researching the topic, identifying relevant information, and determining what I want to investigate. I believe understanding the underlying concepts is just as important as knowing how to use the tools.</p></div>
+          <div class="principle"><strong>02 / APPLICATION</strong><h3>Putting Concepts into Practice</h3><p>I use each project as an opportunity to apply what I've learned and develop new technical skills. This often involves working through unfamiliar methods, testing different approaches, and understanding why certain techniques produce different results.</p></div>
+          <div class="principle"><strong>03 / REFLECTION</strong><h3>Evaluating the Results</h3><p>Completing an analysis is only part of the process. I want to understand what the results actually indicate, where the limitations are, and what I would approach differently in future work. Each project provides an opportunity to improve both my technical abilities and my understanding of finance.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-card">
+          <div><div class="eyebrow section-label">05 / Connect</div><h2>Let's connect over finance and data.</h2><p>I'm interested in opportunities to apply analytical thinking and keep building strong, practical finance skills.</p><div id="resume-status" class="resume-line">Resume available upon request.</div></div>
+          <div class="contact-links">
+            <a class="contact-link" data-github-link href="#" target="_blank" rel="noopener noreferrer" hidden>GitHub ↗</a>
+            <a class="contact-link" data-linkedin-link href="#" target="_blank" rel="noopener noreferrer" hidden>LinkedIn ↗</a>
+            <a class="contact-link" data-email-link href="#" hidden>Email ↗</a>
+            <a class="contact-link" data-resume-link href="#" hidden>View résumé ↗</a>
+            <a class="contact-link" href="#work">See featured work ↑</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="container footer-inner"><span>© <span id="year">2026</span> <span data-name>Your Name</span>. Personal portfolio.</span><span>Built with HTML & CSS · Hosted with GitHub Pages</span></div></footer>
+
+  <script>
+    /* ==========================================================
+       EDIT JUST THESE SETTINGS BEFORE PUBLISHING YOUR WEBSITE.
+       Your username can also be detected automatically once your
+       site is published at https://username.github.io/ .
+       ========================================================== */
+    const SITE = {
+      name: "Jarem Norwood",                    // Example: "Jane Smith"
+      githubUsername: "norwoodjarem",                   // Example: "janesmith" (optional on GitHub Pages)
+      projectRepository: "portfolio-optimization-analysis",
+      linkedinUrl: "https://www.linkedin.com/in/jarem-norwood/",                      // Example: "https://www.linkedin.com/in/janesmith/"
+      email: "jtn65@byu.edu",                            // Example: "hello@example.com"
+      resumeFile: "resume.pdf"                        // Example: "resume.pdf" after uploading it
+    };
+    /* ================= END SETTINGS =========================== */
+
+    const safeName = SITE.name.trim() || "Your Name";
+    document.querySelectorAll("[data-name]").forEach(el => { el.textContent = safeName; });
+    const initials = safeName.toUpperCase() === "YOUR NAME" ? "YN" : safeName.split(/\s+/).map(w => w[0] || "").slice(0, 2).join("").toUpperCase();
+    document.querySelectorAll("[data-initials]").forEach(el => { el.textContent = initials; });
+    document.title = `${safeName} | Finance & Data Analytics Portfolio`;
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const githubFromDomain = /^(?!www\.)[a-zA-Z0-9-]+\.github\.io$/.test(location.hostname)
+      ? location.hostname.split(".")[0] : "";
+    const githubUser = SITE.githubUsername.trim() || githubFromDomain;
+    const setLink = (selector, url) => {
+      if (!url) return;
+      const el = document.querySelector(selector);
+      if (el) { el.href = url; el.hidden = false; }
+    };
+    if (githubUser) {
+      setLink("[data-github-link]", `https://github.com/${encodeURIComponent(githubUser)}`);
+      setLink("[data-project-link]", `https://github.com/${encodeURIComponent(githubUser)}/${encodeURIComponent(SITE.projectRepository)}`);
+    }
+    if (/^https:\/\//i.test(SITE.linkedinUrl)) setLink("[data-linkedin-link]", SITE.linkedinUrl);
+    if (SITE.email && SITE.email.includes("@")) setLink("[data-email-link]", `mailto:${SITE.email}`);
+    if (SITE.resumeFile.trim()) {
+      setLink("[data-resume-link]", SITE.resumeFile);
+      document.getElementById("resume-status").textContent = "View or download my résumé using the link.";
+    }
+    const toggle = document.querySelector(".menu-toggle");
+    const nav = document.getElementById("site-nav");
+    toggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.textContent = open ? "Close ✕" : "Menu ☰";
+    });
+    nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.textContent = "Menu ☰";
+    }));
+  </script>
+</body>
+</html>
